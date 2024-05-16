@@ -135,7 +135,7 @@ public class CubeObject : MonoBehaviour
                 isWaitUpdate = false;
                 coroutine?.Dispose();
             }
-            else if(!isWaitUpdate)
+            else if (!isWaitUpdate)
             {
                 isWaitUpdate = true;
                 coroutine = DelayToUPdateInt3();
@@ -217,6 +217,7 @@ public class CubeObject : MonoBehaviour
         else
             renderer.materials = new Material[2] { current, material };
     }
+
 
     internal void MoveObject()
     {

@@ -151,7 +151,7 @@ public struct Int3
     }
     public static Int3 operator /(Int3 a, int b)
     {
-        return a * (1 / b);
+        return new Int3(a.x / b, a.y / b, a.z / b);
     }
     public static Int3 operator ^(Int3 a, int b)
     {

@@ -1,3 +1,4 @@
+using Lean.Touch;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities.Editor;
 using System;
@@ -17,12 +18,14 @@ public class MapController : MonoBehaviour
     public Transform content;
     public CubeObject prefab;
     public Material materialError;
+    public float rotationSpeed;
     public bool isEditor = false;
+
     //private Dictionary<Int3, CubeObject> items = new();
 
     private void OnEnable()
     {
-        isEditor = false; 
+        isEditor = false;
         instance = this;
     }
 
@@ -36,10 +39,6 @@ public class MapController : MonoBehaviour
         instance = null;
     }
 
-    private void Start()
-    {
-        RandomDirection();
-    }
 
     [HideIf("@isEditor"), Button]
     public void Begin()
@@ -282,14 +281,14 @@ public class MapController : MonoBehaviour
 
         }
     }
-    
+
     [Button]
     public void UpdatePosition()
     {
         var list = transform.GetComponentsInChildren<CubeObject>().ToList();
         foreach (var e in list)
         {
-            
+
             e.transform.position = MapConfig.Instance.GetPosition(e.data.position);
         }
     }
@@ -302,23 +301,9 @@ public class MapController : MonoBehaviour
             DestroyImmediate(transform.GetChild(i).gameObject);
         }
     }
-
-    public void Update()
+    private void Start()
     {
-        if (Application.isPlaying)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if(Physics.Raycast(ray, out var hitInfo))
-                {
-                    var script = hitInfo.collider.GetComponent<CubeObject>();
-                    if(script != null)
-                    {
-                        script.MoveObject();
-                    }
-                }
-            }
-        }
+        RandomDirection();
+
     }
 }
